@@ -1,7 +1,15 @@
+import { Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 function App() {
   return (
-    <div className="App h-screen bg-green-500 flex justify-center items-center">
-      <h1>MERN CHAT-APP</h1>
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Routes>
     </div>
   );
 }
