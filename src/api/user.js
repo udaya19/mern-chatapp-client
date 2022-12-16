@@ -25,3 +25,12 @@ export const loginUser = async (email, password) => {
     return error;
   }
 };
+
+export const loadUser = async () => {
+  try {
+    const response = await (await apiInstance.get("/users/me")).data;
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
