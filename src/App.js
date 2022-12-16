@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { loadUser } from "./api/user";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -8,19 +8,27 @@ import Register from "./pages/Register";
 import { loadLoggedInUser } from "./redux/userSlice";
 function App() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     const loggedInUser = async () => {
       const response = await loadUser();
       await dispatch(loadLoggedInUser(response));
     };
     if (localStorage.getItem("token")) loggedInUser();
-  }, [dispatch]);
+    else {
+      navigate("/login");
+    }
+  }, [dispatch, navigate]);
+  const { isAuthenticated } = useSelector((state) => state.user);
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/" element={isAuthenticated && <Home />} />
+        <Route path="/login" element={isAuthenticated ? <Home /> : <Login />} />
+        <Route
+          path="/register"
+          element={isAuthenticated ? <Home /> : <Register />}
+        />
       </Routes>
     </div>
   );
