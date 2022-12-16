@@ -1,11 +1,25 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../../api/user";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onSubmit = (e) => {
+  const navigate = useNavigate();
+  const onSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const response = await loginUser(email, password);
+      if (response.success) {
+        console.log(response);
+        localStorage.setItem("token", response.token);
+        navigate("/");
+      } else {
+        console.log(response.error);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="h-screen bg-primary flex justify-center items-center">
