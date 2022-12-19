@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route, useNavigate } from "react-router-dom";
-import { loadUser } from "./api/user";
+import { getAllUsers, loadUser } from "./api/user";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { loadLoggedInUser } from "./redux/userSlice";
+import { loadLoggedInUser, setAllUsers } from "./redux/userSlice";
 import { Toaster } from "react-hot-toast";
 function App() {
   const dispatch = useDispatch();
@@ -13,7 +13,11 @@ function App() {
   useEffect(() => {
     const loggedInUser = async () => {
       const response = await loadUser();
-      await dispatch(loadLoggedInUser(response));
+      const allUsersResponse = await getAllUsers();
+      if (response.success) {
+        dispatch(loadLoggedInUser(response));
+        dispatch(setAllUsers(allUsersResponse));
+      }
     };
     if (localStorage.getItem("token")) loggedInUser();
     else {

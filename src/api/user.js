@@ -34,3 +34,12 @@ export const loadUser = async () => {
     return error;
   }
 };
+
+export const getAllUsers = async () => {
+  try {
+    const response = await (await apiInstance.get("/users/all-users")).data;
+    return response;
+  } catch (error) {
+    return error;
+  }
+};
