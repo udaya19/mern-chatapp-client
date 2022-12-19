@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../../api/user";
 
@@ -11,11 +12,11 @@ const Login = () => {
     try {
       const response = await loginUser(email, password);
       if (response.success) {
-        console.log(response);
+        toast.success(response.message);
         localStorage.setItem("token", response.token);
         navigate("/");
       } else {
-        console.log(response.error);
+        toast.error(response.error);
       }
     } catch (error) {
       console.log(error);

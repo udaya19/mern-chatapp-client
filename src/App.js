@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { loadLoggedInUser } from "./redux/userSlice";
+import { Toaster } from "react-hot-toast";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ function App() {
   const { isAuthenticated } = useSelector((state) => state.user);
   return (
     <div>
+      <Toaster position="top-right" reverseOrder={false} />
       <Routes>
         <Route path="/" element={isAuthenticated && <Home />} />
         <Route path="/login" element={isAuthenticated ? <Home /> : <Login />} />

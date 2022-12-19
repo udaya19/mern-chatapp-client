@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../../api/user";
-import { toast, Toaster } from "react-hot-toast";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -14,10 +13,10 @@ const Register = () => {
       const response = await registerUser(name, email, password);
       console.log(response);
       if (response.success) {
-        toast.success(response.message);
+        // toast.success(response.message);
         navigate("/login");
       } else {
-        toast.error();
+        // toast.error();
       }
     } catch (error) {
       console.log(error.message);
@@ -75,23 +74,6 @@ const Register = () => {
           </Link>
         </span>
       </div>
-      <Toaster
-        toastOptions={{
-          success: {
-            style: {
-              backgroundColor: "green",
-            },
-          },
-          error: {
-            style: {
-              backgroundColor: "red",
-            },
-          },
-          duration: 4000,
-          position: "top-right",
-          icon: "🔥",
-        }}
-      />
     </div>
   );
 };
