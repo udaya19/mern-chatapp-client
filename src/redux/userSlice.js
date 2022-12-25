@@ -5,6 +5,7 @@ const initialState = {
   isAuthenticated: false,
   allUsers: [],
   allChats: [],
+  selectedChat: null,
 };
 
 const userSlice = createSlice({
@@ -22,8 +23,12 @@ const userSlice = createSlice({
     setAllChats: (state, action) => {
       state.allChats = action.payload;
     },
+    setSelectedChat: (state, action) => {
+      state.selectedChat = action.payload;
+    },
   },
 });
 
-export const { loadLoggedInUser, setAllUsers, setAllChats } = userSlice.actions;
+export const { loadLoggedInUser, setAllUsers, setAllChats, setSelectedChat } =
+  userSlice.actions;
 export default userSlice.reducer;
