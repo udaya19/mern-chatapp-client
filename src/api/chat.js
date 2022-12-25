@@ -8,7 +8,7 @@ export const getAllChats = async () => {
     return error;
   }
 };
-export const createNewChat = async (members) => {
+export const createNewChatApi = async (members) => {
   try {
     const response = await (
       await apiInstance.post("/chats/create-new-chat", { members })
