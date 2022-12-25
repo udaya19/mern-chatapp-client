@@ -5,8 +5,9 @@ import { getAllUsers, loadUser } from "./api/user";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { loadLoggedInUser, setAllUsers } from "./redux/userSlice";
+import { loadLoggedInUser, setAllChats, setAllUsers } from "./redux/userSlice";
 import { Toaster } from "react-hot-toast";
+import { getAllChats } from "./api/chat";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -14,8 +15,10 @@ function App() {
     const loggedInUser = async () => {
       const response = await loadUser();
       const allUsersResponse = await getAllUsers();
+      const allChatsResponse = await getAllChats();
       if (response.success) {
         dispatch(loadLoggedInUser(response));
+        dispatch(setAllChats(allChatsResponse.data));
         dispatch(setAllUsers(allUsersResponse));
       }
     };

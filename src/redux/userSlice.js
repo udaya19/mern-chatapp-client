@@ -4,6 +4,7 @@ const initialState = {
   user: null,
   isAuthenticated: false,
   allUsers: [],
+  allChats: [],
 };
 
 const userSlice = createSlice({
@@ -18,8 +19,11 @@ const userSlice = createSlice({
     setAllUsers: (state, action) => {
       state.allUsers = action.payload.allUsers;
     },
+    setAllChats: (state, action) => {
+      state.allChats = action.payload;
+    },
   },
 });
 
-export const { loadLoggedInUser, setAllUsers } = userSlice.actions;
+export const { loadLoggedInUser, setAllUsers, setAllChats } = userSlice.actions;
 export default userSlice.reducer;
