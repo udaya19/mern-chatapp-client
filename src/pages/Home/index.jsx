@@ -10,6 +10,7 @@ const Home = () => {
   const [searchKey, setSearchKey] = useState("");
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.user);
+  const { selectedChat } = useSelector((state) => state.user);
   return (
     <div className="h-screen w-screen bg-gray-100 p-2">
       <div className="flex justify-between p-5">
@@ -36,9 +37,7 @@ const Home = () => {
           <UsersList searchKey={searchKey} />
         </div>
         {/* chat area */}
-        <div>
-          <ChatArea />
-        </div>
+        <div className="w-full">{selectedChat && <ChatArea />}</div>
       </div>
     </div>
   );
